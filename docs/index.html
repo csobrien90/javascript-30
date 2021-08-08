@@ -18,9 +18,9 @@
 
             <nav>
                 <ul>
-                    <li><a onclick="navDisplay('project1')">Project 1 - JavaScript Drum Kit</a></li>
-                    <li><a onClick="navDisplay('project2')">Project 2 - CSS and JS Clock</a></li>
-                    <li><a onClick="navDisplay('project3')">Project 3 - Dynamic CSS Variables</a></li>
+                    <li class="links"><a onclick="navDisplay('project1')">Project 1 - JavaScript Drum Kit</a></li>
+                    <li class="links"><a onClick="navDisplay('project2')">Project 2 - CSS and JS Clock</a></li>
+                    <li class="links"><a onClick="navDisplay('project3')">Project 3 - Dynamic CSS Variables</a></li>
                 </ul>
             </nav>
 
@@ -171,10 +171,11 @@
 
     <script>
         function navDisplay(link) {
+            const navLinks = document.getElementsByClassName('links');
             const linkToDisplay = document.getElementById(link);
-            
-            for (let i = 1; i < 3; i++) {
-                var projectById = document.querySelector(`#project${i}`);
+
+            for (let i = 0; i < navLinks.length; i++) {
+                var projectById = document.querySelector(`#project${i + 1}`);
                 if (projectById !== link) {
                     projectById.style.display = "none";
                 }
