@@ -21,6 +21,7 @@
                     <li class="links"><a onclick="navDisplay('project1')">Project 1 - JavaScript Drum Kit</a></li>
                     <li class="links"><a onClick="navDisplay('project2')">Project 2 - CSS and JS Clock</a></li>
                     <li class="links"><a onClick="navDisplay('project3')">Project 3 - Dynamic CSS Variables</a></li>
+                    <li class="links"><a onClick="navDisplay('project4')">Project 4 - Array Operations Part 1</a></li>
                 </ul>
             </nav>
 
@@ -156,6 +157,106 @@
                             const inputs = document.querySelectorAll(".controls input");
                             inputs.forEach(input => input.addEventListener('change', adjustSettings));
                             inputs.forEach(input => input.addEventListener('mousemove', adjustSettings));
+
+                        </script>
+
+                    </article>
+
+                    <article id="project4">
+                      
+                        <h2>Project 4 - Sort the Jazz Musicians</h2>
+                        <label for="instrument-family-select">Sort the list by instrument family:</label>
+                        <select id="instrument-family-select">
+                            <option>Select an Instrument Family</option>
+                            <option>All</option>
+                            <option>Brass</option>
+                            <option>Woodwind</option>
+                            <option>Rhythm Section</option>
+                            <option>Vocal</option>
+                        </select>
+
+                        <section class="list-display"></section>
+
+
+                        <script>
+
+                            const jazzMusicians = [
+                                {name: 'Louis Armstrong', instrument: 'trumpet', era: 'Early Jazz'},
+                                {name: 'Duke Ellington', instrument: 'piano', era: 'Swing'},
+                                {name: 'Miles Davis', instrument: 'trumpet', era: 'Post Bop'},
+                                {name: 'Charlie Parker', instrument: 'saxophone', era: 'Bebop'},
+                                {name: 'John Coltrane', instrument: 'saxophone', era: 'Post Bop'},
+                                {name: 'Dizzy Gillespie', instrument: 'trumpet', era: 'Bebop'},
+                                {name: 'Billie Holiday', instrument: 'voice', era: 'Swing'},
+                                {name: 'Thelonious Monk', instrument: 'piano', era: 'Bebop'},
+                                {name: 'Charles Mingus', instrument: 'bass', era: 'Bebop'},
+                                {name: 'Count Basie', instrument: 'piano', era: 'Swing'},
+                                {name: 'Lester Young', instrument: 'saxophone', era: 'Swing'},
+                                {name: 'Coleman Hawkins', instrument: 'saxophone', era: 'Swing'},
+                                {name: 'Ella Fitzgerald', instrument: 'voice', era: 'Swing'},
+                                {name: 'Sonny Rollins', instrument: 'saxophone', era: 'Post Bop'},
+                                {name: 'Sidney Bechet', instrument: 'saxophone', era: 'Early Jazz'},
+                                {name: 'Art Blakey', instrument: 'drums', era: 'Post Bop'},
+                                {name: 'Ornette Coleman', instrument: 'saxophone', era: 'Post Bop'},
+                                {name: 'Benny Goodman', instrument: 'clarinet', era: 'Swing'},
+                                {name: 'Jelly Roll Morton', instrument: 'piano', era: 'Early Jazz'},
+                                {name: 'Bill Evans', instrument: 'piano', era: 'Post Bop'},
+                                {name: 'Art Tatum', instrument: 'piano', era: 'Early Jazz'},
+                                {name: 'Clifford Brown', instrument: 'trumpet', era: 'Post Bop'},
+                                {name: 'Stan Getz', instrument: 'saxophone', era: 'Post Bop'},
+                                {name: 'Nina Simone', instrument: 'voice', era: 'Post Bop'},
+                                {name: 'Bud Powell', instrument: 'piano', era: 'Bebop'},
+                                {name: 'Fletcher Henderson', instrument: 'piano', era: 'Early Jazz'},
+                                {name: 'Herbie Hancock', instrument: 'piano', era: 'Modern'},
+                                {name: 'Wayne Shorter', instrument: 'saxophone', era: 'Post Bop'},
+                                {name: 'J.J. Johnson', instrument: 'trombone', era: 'Bebop'},
+                                {name: 'Elliot Mason', instrument: 'trombone', era: 'Modern'},
+                                {name: 'Curtis Fuller', instrument: 'trombone', era: 'Post Bop'},
+                                {name: 'Wynton Marsalis', instrument: 'trumpet', era: 'Modern'},
+                                {name: 'Sean Jones', instrument: 'trumpet', era: 'Modern'},
+                                {name: 'Keith Jarrett', instrument: 'piano', era: 'Modern'},
+                                {name: 'Chris Potter', instrument: 'saxophone', era: 'Modern'},
+                                {name: 'Bessie Smith', instrument: 'voice', era: 'Early Jazz'},
+                                {name: 'Frank Sinatra', instrument: 'voice', era: 'Swing'},
+                                {name: 'Kurt Elling', instrument: 'voice', era: 'Modern'},
+                                {name: 'Bobby McFerrin', instrument: 'voice', era: 'Post Bop'},
+                                {name: 'Ron Carter', instrument: 'bass', era: 'Post Bop'},
+                                {name: 'Esperanza Spalding', instrument: 'bass', era: 'Modern'}
+                            ]
+
+                            const listDisplay = document.querySelector('.list-display');
+                            const instrumentFamilySelect = document.getElementById('instrument-family-select');
+
+                            //Sorted lists based on instrument family
+
+                            var brass = jazzMusicians.filter((musician) => {
+                                if (musician.instrument == 'trumpet' || musician.instrument == 'trombone') {return true}
+                            });
+                            var woodwinds = jazzMusicians.filter((musician) => {
+                                if (musician.instrument == 'saxophone' || musician.instrument == 'clarinet') {return true}
+                            });
+                            var rhythm = jazzMusicians.filter((musician) => {
+                                if (musician.instrument == 'drums' || musician.instrument == 'piano' || musician.instrument == 'bass') {return true}
+                            });     
+                            var vocal = jazzMusicians.filter((musician) => {
+                                if (musician.instrument == 'voice') {return true}
+                            });
+
+                            instrumentFamilySelect.addEventListener('change', () => {
+                                var selectedFamily;
+
+                                if (instrumentFamilySelect.value == 'All') {selectedFamily = jazzMusicians}
+                                else if (instrumentFamilySelect.value == 'Brass') {selectedFamily = brass}
+                                else if (instrumentFamilySelect.value == 'Woodwind') {selectedFamily = woodwinds}
+                                else if (instrumentFamilySelect.value == 'Rhythm Section') {selectedFamily = rhythm}
+                                else if (instrumentFamilySelect.value == 'Vocal') {selectedFamily = vocal};
+
+                                listDisplay.innerHTML = selectedFamily
+                                    .sort((a, b) => a.name[0] > b.name[0] ? 1 : -1) //alphabetize
+                                    .map(musician => `${musician.name}, ${musician.instrument}`) //process into preferred format 
+                                    .join(`<br>`); //remove commas from array and add line break
+
+                            })
 
                         </script>
 
